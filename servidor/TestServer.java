@@ -1,17 +1,25 @@
 import java.rmi.*;
-import java.rmi.server.*;
 
+/**
+ * Para su ejecución:
+ * java -Djava.security.policy=servidor.permisos ServidorEco 54321
+ */
 class TestServer  {
+
     static public void main (String args[]) {
-       if (args.length!=1) {
+
+        if (args.length!=1) {
             System.err.println("Uso: TestServer numPuertoRegistro");
             return;
         }
+
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new RMISecurityManager());
         }
+
         try {
-            HDDVirtual srv = new HDDVirtual();
+
+            HDDVirtualImpl srv = new HDDVirtualImpl();
             Naming.rebind("rmi://localhost:" + args[0] + "/HDDVirtual", srv);
         }
         catch (RemoteException e) {

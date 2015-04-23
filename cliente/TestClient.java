@@ -1,8 +1,10 @@
 import java.rmi.*;
-import java.rmi.server.*;
 import java.io.*;
-import java.util.*;
 
+/**
+ * Para su ejecución:
+ * java -Djava.security.policy=cliente.permisos ServidorEco 54321
+ */
 
 public class TestClient
 {
@@ -22,13 +24,13 @@ public class TestClient
       out.close();
   }
 
-  public static void upload(HDDVirtualInterf server, File src,
+  public static void upload(HDDVirtual server, File src,
                             File dest) throws IOException
   {
     copy(new FileInputStream(src), server.getOutputStream(dest));
   }
 
-  public static void download(HDDVirtualInterf server, File src,
+  public static void download(HDDVirtual server, File src,
                               File dest) throws IOException
   {
     copy(server.getInputStream(src), new FileOutputStream(dest));
@@ -37,13 +39,16 @@ public class TestClient
   public static void main(String[]args) throws Exception
   {
 
-    if (args.length != 6)
+ /*   if (args.length != 6)
       {
         System.err.println
           ("Uso: TestClient hostregistro numPuertoRegistro nomFichEntradaDownload nomFichSalidaDownload nomFichEntradaUpload nomFichSalidaUpload");
         return;
       }
-
+*/
+      if(args.length != 4){
+          System.err.println("Uso: TestClient <host puerto nombreCliente idCliente>");
+      }
 
     if (System.getSecurityManager() == null)
       System.setSecurityManager(new SecurityManager());
@@ -51,9 +56,15 @@ public class TestClient
     try
     {
 
-      HDDVirtualInterf server =
-        (HDDVirtualInterf) Naming.lookup("//" + args[0] + ":" + args[1] +
+        // Obtenemos el servicio de HDDVirtual
+      HDDVirtualImpl server =
+        (HDDVirtualImpl) Naming.lookup("//" + args[0] + ":" + args[1] +
                                          "/HDDVirtual");
+
+        // Creamos un nuevo cliente para el servidor
+        Cliente client = new Cliente(args[2], args[3]);
+        // Creamos un nuevo servicio de ficheros para el cliente
+        ServicioFichero sf = server.crearServicio(client);
 
 
       File testFile = new File(args[2]);

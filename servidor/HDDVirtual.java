@@ -1,25 +1,36 @@
-import java.io.*;
 import java.rmi.*;
-import java.rmi.server.*;
-import java.util.*;
+import java.io.*;
+import java.util.List;
 
-class HDDVirtual extends UnicastRemoteObject implements HDDVirtualInterf
-{
-  HDDVirtual() throws RemoteException
-  {
-    super();
-  }
+/**
+ * Interfaz que definirá el servicio de archivos
+ */
+interface HDDVirtual extends Remote {
 
-  public OutputStream getOutputStream(File f) throws IOException
-  {
-    return new RMIOutputStream(new RMIOutputStreamImpl(new
-                                                       FileOutputStream(f)));
-  }
+    /**
+     * Método que sirve para crea un nuevo servicio para un cliente determinado
+     * @param c Cliente que crea el servicio
+     * @return Servicio para el envío y recepción de ficheros
+     * @throws RemoteException
+     */
+    public ServicioFichero crearServicio(Cliente c) throws RemoteException;
 
-  public InputStream getInputStream(File f) throws IOException
-  {
-    return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
-  }
+    /**
+     * Método que devuelve el listado con los servicios inicializados
+     * @return Listado con los servicios de los distintos clientes
+     * @throws RemoteException
+     */
+    public List<ServicioFichero> getServicios() throws RemoteException;
 
+    /**
+     * Método que comprueba y crea un nuevo directorio para el cliente si este no existiera
+     * @return True si el directorio se ha creado, False en caso contrario
+     * @throws RemoteException
+     */
+     File verificarDirectorioCliente(Cliente c) throws RemoteException;
+
+    // TODO: Revisar estos métodos
+    public InputStream getInputStream(File f) throws IOException;
+    public OutputStream getOutputStream(File f) throws IOException;
 }
 
