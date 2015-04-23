@@ -29,8 +29,5 @@ interface HDDVirtual extends Remote {
      */
      File verificarDirectorioCliente(Cliente c) throws RemoteException;
 
-    // TODO: Revisar estos métodos
-    public InputStream getInputStream(File f) throws IOException;
-    public OutputStream getOutputStream(File f) throws IOException;
 }
 

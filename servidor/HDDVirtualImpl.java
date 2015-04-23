@@ -54,7 +54,13 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
             e.printStackTrace();
         }
     }
-
+    /**
+     * Método que sirve para obtener un flujo de salida remoto
+     *
+     * @param f Fichero en el que se quiere escribir
+     * @return Servicio para el envío y recepción de ficheros
+     * @throws java.rmi.RemoteException
+     */
   public OutputStream getOutputStream(File f) throws IOException
   {
     return new RMIOutputStream(new RMIOutputStreamImpl(new
@@ -62,7 +68,7 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
   }
 
     /**
-     * Método que sirve para crea un nuevo servicio para un cliente determinado
+     * Método que sirve para crear un nuevo servicio para un cliente determinado
      *
      * @param c Cliente que crea el servicio
      * @return Servicio para el envío y recepción de ficheros

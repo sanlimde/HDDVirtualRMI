@@ -27,13 +27,13 @@ interface ServicioFichero extends Remote{
      * @return Si el fichero se ha transmitido correctamente (true) o no (false)
      * @throws RemoteException
      */
-    boolean pushFichero(File f) throws RemoteException;
+    public OutputStream getOutputStream(File f) throws IOException;
 
     /**
      * Método que permite recibir un fichero
-     * @return Si el fichero se ha recibido correctamente (true) o no (false)
+     * @return Devuelve el flujo de salida para escribir el fichero
      * @throws RemoteException
      */
-    boolean pullFichero(File f) throws RemoteException;
+    public InputStream getInputStream(File f) throws IOException;
 
 }
