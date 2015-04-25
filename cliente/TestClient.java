@@ -39,15 +39,20 @@ public class TestClient
 
             // Creamos un nuevo cliente para el servidor
             Cliente client = new Cliente(args[2]);
+
             // Creamos un nuevo servicio de ficheros para el cliente
             ServicioFichero sf = server.crearServicio(client);
 
             long len;
             long t;
+
+            // Creamos un nuevo manejador de servicio
             ManejadorServicio manejador = new ManejadorServicio(sf);
             File testFile;
 
-            if(Objects.equals(args[3], "-d")){
+            // Comprobamos si es una descarga
+            if("-d".compareTo(args[3]) == 0){
+                System.out.println("Se va a realizar una descarga");
                 testFile = new File(args[4]);
                 len = testFile.length();
                 t = System.currentTimeMillis();
@@ -55,9 +60,9 @@ public class TestClient
                 t = (System.currentTimeMillis() - t) / 1000;
                 System.out.println("Descarga de " + args[4] + " : " + (len / t / 1000000) + " MB/s");
 
-            }
-            else if (Objects.equals(args[3], "-s")){
-
+            }// En caso contrario comprobamos si es una subida
+            else if ("-s".compareTo(args[3]) == 0){
+                System.out.println("Se va a realizar una subida");
                 testFile = new File(args[4]);
                 len = testFile.length();
                 t = System.currentTimeMillis();
@@ -67,7 +72,11 @@ public class TestClient
 
 
             }
-            else{
+            else if("-l".compareTo(args[3]) == 0){
+
+
+            }
+            else{ // En caso contrario mostramos un error
                 System.err.println("No se ha introducido el parámetro [-d (para descargar) / -s (para subir)] correctamente");
             }
 

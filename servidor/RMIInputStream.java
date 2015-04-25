@@ -12,13 +12,24 @@ import java.io.*;
 */
 public class RMIInputStream extends InputStream implements
         Serializable {
-
+    /**
+     * Flujo de entrada
+     */
     RMIInputStreamInterf in;
 
+    /**
+     * Constructor principal
+     * @param in Flujo de entrada utilizado, pasado como argumento
+     */
     public RMIInputStream(RMIInputStreamInterf in) {
         this.in = in;
     }
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
     public int read() throws IOException {
         return in.read();
     }

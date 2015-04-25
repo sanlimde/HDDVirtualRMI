@@ -1,9 +1,11 @@
 import java.io.Serializable;
 
+
 /**
  * Clase que representa un cliente, contiene datos básicos
  */
 public class Cliente implements Serializable {
+
 
     /**
      * Nombre del cliente
@@ -15,8 +17,10 @@ public class Cliente implements Serializable {
      * Constructor principal
      * @param nom Nombre del cliente
      */
-    Cliente(String nom){
+    Cliente(String nom)
+    {
         nombre = nom;
+        System.out.println("Se ha creado un nuevo cliente con nombre : " + nom);
     }
 
     /**

@@ -9,17 +9,17 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
     /**
      * Constante para definir el nombre del directorio donde se almacenará el fichero
      */
-  private final String carpetaHdd = "HDD";
+    private final String carpetaHdd = "HDD";
 
     /**
      * Fichero que contiene el directorio HDD donde se buscará a los clientes
      */
-  private File directorioHdd;
+    private File directorioHdd;
 
     /**
      * Objeto que nos servirá para almacenar los servicios abiertos por los clientes
      */
-  private List < ServicioFichero > listadoServicios;
+    private List < ServicioFichero > listadoServicios;
 
     /**
      * Constructor principal que inicializa el sistema
@@ -42,6 +42,8 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
     File directoriActual = new File(".");
     listadoServicios = new LinkedList<ServicioFichero>();
 
+
+
       try
     {
       // Abrimos un nuevo fichero que será nuestro disco virtual
@@ -50,12 +52,14 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
 
       // Si no existe, crea el directorio, en caso contrario no se hace nada
       if (directorioHdd.mkdirs())
-        System.out.println("Se ha creado el directorio " + carpetaHdd +
-                           " con éxito");
+          System.out.println("Se ha creado con éxito el directorio " + carpetaHdd);
       else
-        System.out.println("No se ha creado el directorio " + carpetaHdd +
-                           ". Ya existe en el sistema");
+        System.out.println("El directorio " + carpetaHdd + " ya existe. No ha sido creado");
 
+        if(directorioHdd.exists())
+            System.out.println("Se podido abrir con éxito la ruta : " + directorioHdd.getCanonicalPath());
+        else
+            System.out.println("El directorio " + directorioHdd + " no existe.");
     }
     catch(IOException e)
     {
@@ -73,16 +77,24 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
   @Override
     public ServicioFichero crearServicio(Cliente c) throws RemoteException
   {
+      System.out.println("Se va a proceder a crear un nuevo servicio para el cliente : " + c.getNombre());
 
     File directorioCliente = null;
+
     ServicioFichero sf = null;
 
     if ((directorioCliente = verificarDirectorioCliente(c)) != null)
       {
         // Creamos un nuevo servicio para gestionar los ficheros, pasándole como argumento el cliente
-        sf = new ServicioFicheroImpl(c, directorioCliente);
-        // Añadimos dicho servicio al listado
+          try {
+              sf = new ServicioFicheroImpl(c, directorioCliente);
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+
+          // Añadimos dicho servicio al listado
         listadoServicios.add(sf);
+          System.out.println("Se ha añadido un nuevo servicio al listado para el cliente : " + c.getNombre());
       }
     else
       {
@@ -104,21 +116,25 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
     return listadoServicios;
   }
 
-
-        /**
+    /**
      * Método que devuelve el Servicio del cliente en cuestion
      * @return Servicio del cliente en cuestion o null si no lo encuentra
      * @throws RemoteException
      */
   public ServicioFichero getServicio(Cliente c) throws RemoteException
   {
+      System.out.println("Se va a proceder a obtener el servicio para el cliente : " + c.getNombre());
+
     for (ServicioFichero i:listadoServicios)
       {
         if (i.getCliente().getNombre() == c.getNombre())
           {
+              System.out.println("Se ha encontrado un servicio para el cliente : " + c.getNombre());
+
             return i;
           }
       }
+      System.out.println("No se ha encontrado servicio para el cliente : " + c.getNombre());
     return null;
   }
 
@@ -132,6 +148,8 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
     public File verificarDirectorioCliente(Cliente c) throws RemoteException
   {
 
+      System.out.println("Se va a proceder a verificar el directorio del cliente");
+
     File directorioCliente = null;
 
       try
@@ -141,11 +159,9 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
         new File(directorioHdd.getCanonicalPath() + "/" + c.getNombre());
 
       if (directorioCliente.mkdirs())
-        System.out.
-          println("Se ha creado un nuevo directorio para el cliente");
+        System.out.println("Se ha creado un nuevo directorio para el cliente con nombre : \"" + directorioCliente.getName() + "\"");
       else
-        System.out.println("Se ha abierto el directorio para el cliente");
-
+        System.out.println("El directorio \"" + directorioCliente.getName() + "\" ya existe. No se ha creado otro nuevo.");
 
 
     }

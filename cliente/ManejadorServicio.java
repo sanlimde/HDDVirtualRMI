@@ -10,6 +10,7 @@ public class ManejadorServicio {
      * Tamaño del búffer de copia
      */
     final public static int BUF_SIZE = 1024 * 64;
+
     /**
      * Objeto que representa el servicio a manejar
      */

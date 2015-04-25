@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 /**
  * Created by Chorro on 22/04/15.
  */
-public class ServicioFicheroImpl implements  ServicioFichero {
+public class ServicioFicheroImpl implements  ServicioFichero, Serializable {
 
     /**
      * Objeto que representa a un cliente en el servicio
@@ -22,9 +22,13 @@ public class ServicioFicheroImpl implements  ServicioFichero {
      * @param c Cliente que obtiene el servicio
      * @throws RemoteException
      */
-    ServicioFicheroImpl(Cliente c, File dc) throws RemoteException{
+    ServicioFicheroImpl(Cliente c, File dc) throws RemoteException, IOException{
         client = c;
         directorioCliente = dc;
+
+        System.out.println("Se ha creado un nuevo servicio:\n" +
+                "\tCliente : " + c.getNombre() +
+                "\n\tDirectorio : " + dc.getCanonicalPath());
     }
 
     /**
@@ -40,7 +44,7 @@ public class ServicioFicheroImpl implements  ServicioFichero {
         boolean resultado = false;
 
         directorioCliente = f;
-
+        System.out.println("Se ha asignado al cliente  \"" + client.getNombre() + "\" el directorio : " + f.getName());
         if(directorioCliente != null)
             resultado = true;
 

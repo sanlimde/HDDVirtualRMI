@@ -36,8 +36,5 @@ interface HDDVirtual extends Remote {
      */
      public File verificarDirectorioCliente(Cliente c) throws RemoteException;
 
-
-
-
 }
 
