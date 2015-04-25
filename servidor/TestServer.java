@@ -2,7 +2,7 @@ import java.rmi.*;
 
 /**
  * Para su ejecución:
- * java -Djava.security.policy=servidor.permisos ServidorEco 54321
+ * java -Djava.security.policy=servidor.permisos TestServer 54321
  */
 class TestServer  {
 
