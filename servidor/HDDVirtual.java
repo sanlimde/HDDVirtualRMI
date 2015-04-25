@@ -27,7 +27,7 @@ interface HDDVirtual extends Remote {
      * @return Servicio del cliente en cuestion
      * @throws RemoteException
      */
-    public List<ServicioFichero> getServicio(Cliente c) throws RemoteException;
+    public ServicioFichero getServicio(Cliente c) throws RemoteException;
     
     /**
      * Método que comprueba y crea un nuevo directorio para el cliente si este no existiera
