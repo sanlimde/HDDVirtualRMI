@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.*;
 import java.rmi.RemoteException;
 
 /**
@@ -59,25 +59,25 @@ public class ServicioFicheroImpl implements  ServicioFichero {
     }
 
 
+
     /**
-     * Método que permite enviar un fichero
-     *
-     * @return Si el fichero se ha transmitido correctamente (true) o no (false)
-     * @throws java.rmi.RemoteException
+     * Método que devuelve un flujo de salida remoto que nos permite recibir un fichero desde él
+     * @param nombreFichero nombre del fichero que queremos leer
+     * @throws IOException
      */
-    @Override
-    public boolean pushFichero(File f) throws RemoteException {
-        return false;
+    public OutputStream getOutputStream(String nombreFichero) throws IOException{
+        File f = new File(nombreFichero);
+        return new RMIOutputStream(new RMIOutputStreamImpl(new
+                FileOutputStream(f)));
     }
 
     /**
-     * Método que permite recibir un fichero
-     *
-     * @return Si el fichero se ha recibido correctamente (true) o no (false)
-     * @throws java.rmi.RemoteException
+     * Método que devuelve un flujo de entrada remoto que nos permite escribir un fichero en él
+     * @param nombreFichero nombre del fichero en el que queremos escribir
+     * @throws IOException
      */
-    @Override
-    public boolean pullFichero(File f) throws RemoteException {
-        return false;
+    public InputStream getInputStream(String nombreFichero) throws IOException{
+        File f = new File(nombreFichero);
+        return new RMIInputStream(new RMIInputStreamImpl(new FileInputStream(f)));
     }
 }

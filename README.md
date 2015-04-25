@@ -13,12 +13,12 @@ Debido a la falta de tiempo y a lo que se quiere realizar optaría por un sistem
 
 Disponemos de tres clases:
 - Cliente
-- ServicioFichero
+- ServicioFicheroImpl
 - HDDVirtualImpl
 
 Dentro de HDDVirtualImpl se hace uso del ServicioFichero y este a su vez de Cliente. O lo que es lo mismo. Tendremos una
 serie de clientes a los cuales les asociamos unos servicios que es gestionado por el HDDVirtualImpl. De este modo
-creamos un directorio único llamando "hdd" y dentro de él un directorio para cada cliente nuevo:
+creamos un directorio único llamado "hdd" y dentro de él un directorio para cada cliente nuevo:
 
 hdd
 |

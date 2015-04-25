@@ -40,6 +40,7 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
   {
     // Comprobamos el directorio actual
     File directoriActual = new File(".");
+    listadoServicios = new LinkedList<ServicioFichero>();
 
       try
     {
@@ -151,6 +152,10 @@ class HDDVirtualImpl extends UnicastRemoteObject implements HDDVirtual
     catch(IOException e)
     {
       e.printStackTrace();
+    }
+    catch(SecurityException e){
+      System.out.println("No se tienen permisos");
+
     }
 
     return directorioCliente;

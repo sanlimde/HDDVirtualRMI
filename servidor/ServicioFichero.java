@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.*;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -22,18 +22,9 @@ interface ServicioFichero extends Remote{
      */
     Cliente getCliente() throws RemoteException;
 
-    /**
-     * Método que permite enviar un fichero
-     * @return Si el fichero se ha transmitido correctamente (true) o no (false)
-     * @throws RemoteException
-     */
-    public OutputStream getOutputStream(File f) throws IOException;
+    OutputStream getOutputStream(String nombreFichero) throws IOException;
 
-    /**
-     * Método que permite recibir un fichero
-     * @return Devuelve el flujo de salida para escribir el fichero
-     * @throws RemoteException
-     */
-    public InputStream getInputStream(File f) throws IOException;
+    InputStream getInputStream(String nombreFichero) throws IOException;
 
-}
+
+    }
