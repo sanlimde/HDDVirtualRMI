@@ -31,25 +31,6 @@ public class ServicioFicheroImpl implements  ServicioFichero, Serializable {
                 "\n\tDirectorio : " + dc.getCanonicalPath());
     }
 
-    /**
-     * Método que permite establecer un nuevo fichero al servicio
-     *
-     * @param f Fichero único para el cliente del servicio
-     * @return True si fue correcta la operación, False en caso contrario
-     * @throws java.rmi.RemoteException
-     */
-    @Override
-    public boolean setFile(File f) throws RemoteException {
-
-        boolean resultado = false;
-
-        directorioCliente = f;
-        System.out.println("Se ha asignado al cliente  \"" + client.getNombre() + "\" el directorio : " + f.getName());
-        if(directorioCliente != null)
-            resultado = true;
-
-        return resultado;
-    }
 
     /**
      * Método que permite obtener el cliente asociado
