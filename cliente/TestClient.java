@@ -55,10 +55,15 @@ public class TestClient
                 System.out.println("Se va a realizar una descarga");
                 testFile = new File(args[4]);
                 len = testFile.length();
-                t = System.currentTimeMillis();
+                t = System.nanoTime();
                 manejador.pullFichero(testFile);
-                t = (System.currentTimeMillis() - t) / 1000;
-                System.out.println("Descarga de " + args[4] + " : " + (len / t / 1000000) + " MB/s");
+                t = (System.nanoTime() - t) / 1000000000;
+                if(t!=0){
+                    System.out.println("Descarga de " + args[4] + " : " + (len / (t * 1000000)) + " MB/s");
+                }
+                else {
+                    System.out.println("Descarga de " + args[4] + " : El fichero se ha transferido muy rápido y no ha sido posible calcular la tasa de transmisión");
+                }
 
             }// En caso contrario comprobamos si es una subida
             else if ("-s".compareTo(args[3]) == 0){
@@ -67,8 +72,13 @@ public class TestClient
                 len = testFile.length();
                 t = System.currentTimeMillis();
                 manejador.pushFichero(testFile);
-                t = (System.currentTimeMillis() - t) / 1000;
-                System.out.println("Subida de " + args[4] + " : " + (len / t / 1000000) + " MB/s");
+                t = (System.nanoTime() - t) / 1000000000;
+                if(t!=0){
+                    System.out.println("Subida de " + args[4] + " : " + (len / (t * 1000000)) + " MB/s");
+                }
+                else{
+                    System.out.println("Subida de " + args[4] + " : El fichero se ha transferido muy rápido y no ha sido posible calcular la tasa de transmisión");
+                }
 
 
             }
