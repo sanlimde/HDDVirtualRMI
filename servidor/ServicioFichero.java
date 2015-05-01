@@ -1,12 +1,11 @@
 import java.io.*;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.rmi.*;
 
 /**
  * Interfaz que definirá el servicio de ficheros
  */
 interface ServicioFichero extends Remote{
-    
+
 
     /**
      * Método que permite obtener el cliente asociado

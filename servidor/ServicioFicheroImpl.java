@@ -1,5 +1,5 @@
 import java.io.*;
-import java.rmi.RemoteException;
+import java.rmi.*;
 
 /**
  * Created by Chorro on 22/04/15.
